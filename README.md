@@ -5,7 +5,7 @@ Protótipo original em primeira pessoa com cenário 3D, mira, rifle, disparos, r
 ## Requisitos
 - Node.js 18 ou mais recente
 - Navegador atualizado com suporte a WebGL
-- Conexão à internet para carregar Three.js pelo CDN (as músicas são locais)
+- Conexão à internet para carregar Three.js pelo CDN (as músicas, se houver, são locais)
 
 ## Executar no PC
 1. Extraia o ZIP.
@@ -18,14 +18,18 @@ Protótipo original em primeira pessoa com cenário 3D, mira, rifle, disparos, r
 O servidor serve o jogo a partir da pasta `public/`.
 
 ## Música local
-Os seis MP3 estão em `public/audio/`. Não são enviados pelo Socket.IO: cada navegador toca os arquivos localmente.
+O jogo toca música a partir de arquivos MP3 na pasta `public/audio/`. **Os MP3 não estão incluídos neste repositório** (músicas comerciais têm direitos autorais), então você precisa colocar os seus. O jogo funciona normalmente sem eles, só fica sem trilha.
 
-- **Menu:** Devil In A New Dress, That's What I Like, Shabang.
-- **Partida:** POWER, 24K Magic, Smells Like Teen Spirit.
+Nomes de arquivo esperados (editáveis na lista `musicTracks` em `public/index.html`):
 
-A playlist de cada modo toca em sequência e repete. Ao iniciar a partida, a música muda para a playlist de gameplay; ao clicar em **MENU**, retorna à playlist do menu. A troca entre faixas usa uma transição curta entre dois reprodutores de áudio, sem reiniciar a faixa em cada atualização do jogo. Os controles de música e volume estão no menu e no HUD.
+- **Menu:** `devil-in-a-new-dress.mp3`, `thats-what-i-like.mp3`, `shabang.mp3`
+- **Partida:** `power.mp3`, `24k-magic.mp3`, `smells-like-teen-spirit.mp3`
 
-Navegadores modernos podem bloquear áudio antes de uma interação do usuário. Por isso, a reprodução é desbloqueada no primeiro clique/toque. Se não ouvir música, clique uma vez na página e confira se o controle está em **MÚSICA: LIGADA** e se o volume está acima de zero.
+Para usar outras músicas, copie seus MP3 para `public/audio/` e ajuste os `title` e `src` em `musicTracks`. Músicas livres de direitos (Creative Commons, domínio público ou compradas com licença) são a melhor escolha se você for publicar o jogo online.
+
+A playlist de cada modo toca em sequência e repete. Ao iniciar a partida, a música muda para a playlist de gameplay; ao clicar em **MENU**, volta para a do menu. A troca entre faixas usa uma transição curta entre dois reprodutores. Se um arquivo estiver faltando, o jogo pula para o próximo. Os controles de música e volume ficam no menu e no HUD.
+
+Navegadores bloqueiam áudio antes de uma interação do usuário. Por isso a reprodução é desbloqueada no primeiro clique, toque ou tecla. Se não ouvir nada, clique uma vez na página e confira se está em **MÚSICA: LIGADA** e com volume acima de zero.
 
 ## Colocar online para jogar com amigos
 1. Publique a pasta do projeto em um host que aceite Node.js e WebSockets (por exemplo, um VPS ou serviço de hospedagem Node).
@@ -51,6 +55,6 @@ Navegadores modernos podem bloquear áudio antes de uma interação do usuário.
 
 ## Estrutura
 - `public/index.html`: jogo 3D e controle de música
-- `public/audio/`: seis arquivos MP3 locais
+- `public/audio/`: coloque aqui seus MP3 (ignorados pelo Git)
 - `server.js`: servidor HTTP + Socket.IO
 - `package.json`: dependências e comando de inicialização
